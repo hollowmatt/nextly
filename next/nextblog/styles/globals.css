@@ -11,6 +11,10 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  text-decoration: underline;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -22,15 +26,14 @@ img {
 
 h1,
 h2,
-p,
 ul {
   margin: 0;
 }
 
-ul {
+/* ul {
   padding: 0;
   list-style: none;
-}
+} */
 
 button {
   padding: 0.5rem 1rem;
