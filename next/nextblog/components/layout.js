@@ -4,6 +4,7 @@ import styles from './layout.module.css';
 import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
 import Footer from './footer';
+import Container from './container';
 const name = "Matt Holloway";
 export const siteTitle = "Matt's Blog - supplemental";
 
@@ -63,9 +64,11 @@ export default function Layout({ children, home }) {
           {children}
         </main>
         {!home && (
-          <div className={styles.backToHome}>
-            <Link href="/">← Back to home</Link>
-          </div>
+          <Container>
+            <div className={styles.backToHome}>
+              <Link href="/">← Back to home</Link>
+            </div>
+          </Container>
         )}
       </div>
       <Footer/>
