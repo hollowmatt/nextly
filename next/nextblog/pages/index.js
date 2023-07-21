@@ -1,24 +1,17 @@
 import Head from 'next/head';
 import utilStyles from '../styles/utils.module.css';
 import Layout, { siteTitle } from '../components/layout';
-import { getSortedPostsData } from '../lib/posts';
+import { getSortedPostsData, getHeaderData } from '../lib/posts';
 import Link from 'next/link';
 import Date from '../components/date';
 import Container from '../components/container';
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
+  const headerData = await getHeaderData();
   return {
     props: {
       allPostsData,
-    },
-  };
-}
-
-export async function getHeaderProps() {
-  const headerData = getHeaderData();
-  return {
-    props: {
       headerData,
     },
   };
@@ -34,18 +27,10 @@ export default function Home( {allPostsData, headerData} ) {
         {/* Move this section to a 'intro' omponent */}
         <section className="flex-col md:flex-row flex items-center md:justify-between mt-16 mb-16 md:mb-12">
           <h1 className="text-5xl md:text-8xl font-bold tracking-tighter leading-tight md:pr-8">
-            Blogly.
-            {console.log(headerData)}
+            {headerData.header_title}
           </h1>
           <h4 className="text-center md:text-left text-lg mt-5 md:pl-8">
-          Hello, I'm <strong>Matt</strong>.  I do stuff at Google.   This is basically a simple, random set of blog posts using {' '}
-            <a
-              href="https://nextjs.org/"
-              className="underline hover:text-blue-600 duration-200 transition-colors"
-            >
-              Next.js
-            </a>{' '}
-            and Markdown.
+            <div dangerouslySetInnerHTML={{__html: headerData.contentHtml}} />
           </h4>
         </section>
 

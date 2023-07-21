@@ -63,18 +63,17 @@ export async function getPostData(id) {
 }
 
 export async function getHeaderData() {
-  console.log(blah);
-  // const fullPath = path.join(metaDirectory, 'header.md');
-  // const fileContents = fs.readFileSync(fullPath, 'utf-8');
+  const fullPath = path.join(metaDirectory, 'header.md');
+  const fileContents = fs.readFileSync(fullPath, 'utf-8');
 
-  // const matterResult = matter(fileContents);
-  // const processedContent = await remark()
-  //   .use(html)
-  //   .process(matterResult.content);
-  // const contentHtml = processedContent.toString();
+  const matterResult = matter(fileContents);
+  const processedContent = await remark()
+    .use(html)
+    .process(matterResult.content);
+  const contentHtml = processedContent.toString();
 
-  // return {
-  //   contentHtml,
-  //   ...matterResult.data,
-  // };
+  return {
+    contentHtml,
+    ...matterResult.data,
+  };
 }
