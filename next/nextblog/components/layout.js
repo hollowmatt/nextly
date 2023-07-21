@@ -3,69 +3,75 @@ import Image from 'next/image';
 import styles from './layout.module.css';
 import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
-
+import Footer from './footer';
+import Container from './container';
 const name = "Matt Holloway";
 export const siteTitle = "Matt's Blog - supplemental";
 
 export default function Layout({ children, home }) {
   return (
-    <div className={styles.container}>
-      <Head>
-        <link rel="icon" href="/favicon.ico" />
-        <meta
-          name="description"
-          content="blah blah about next.js blah"
-        />
-        <meta
-          property="og:image"
-          content={`https://og-image.vercel.app/${encodeURI(
-            siteTitle,
-          )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
-        />
-        <meta name="og:title" content={siteTitle} />
-        <meta name="twitter:card" content="summary_large_image" />
-      </Head>
-      <header className={styles.header}>
-        {home ? (
-          <>
-            <Image
-              priority
-              src="/images/profile.jpg"
-              className={utilStyles.borderCircle}
-              height={144}
-              width={144}
-              alt="Profile Pic"
-            />
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
-          </>
-        ) : (
-          <>
-            <Link href="/">
+    <>
+      <div className="min-h-screen">
+        <Head>
+          <link rel="icon" href="/favicon.ico" />
+          <meta
+            name="description"
+            content="blah blah about next.js blah"
+          />
+          <meta
+            property="og:image"
+            content={`https://og-image.vercel.app/${encodeURI(
+              siteTitle,
+            )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
+          />
+          <meta name="og:title" content={siteTitle} />
+          <meta name="twitter:card" content="summary_large_image" />
+        </Head>
+        <header className={styles.header}>
+          {home ? (
+            <>
               <Image
                 priority
-                src='/images/profile.jpg'
+                src="/images/profile.jpg"
                 className={utilStyles.borderCircle}
-                height={108}
-                width={108}
-                alt="Smaller Profile Pic"
+                height={144}
+                width={144}
+                alt="Profile Pic"
               />
-            </Link>
-            <h2 className={utilStyles.headingLg}>
-              <Link href="/" className={utilStyles.colorInherit}>
-                {name}
+              <h1 className={utilStyles.heading2Xl}>{name}</h1>
+            </>
+          ) : (
+            <>
+              <Link href="/">
+                <Image
+                  priority
+                  src='/images/profile.jpg'
+                  className={utilStyles.borderCircle}
+                  height={108}
+                  width={108}
+                  alt="Smaller Profile Pic"
+                />
               </Link>
-            </h2>
-          </>
+              <h2 className={utilStyles.headingLg}>
+                <Link href="/" className={utilStyles.colorInherit}>
+                  {name}
+                </Link>
+              </h2>
+            </>
+          )}
+        </header>
+        <main>
+          {children}
+        </main>
+        {!home && (
+          <Container>
+            <div className={styles.backToHome}>
+              <Link href="/">← Back to home</Link>
+            </div>
+          </Container>
         )}
-      </header>
-      <main>
-        {children}
-      </main>
-      {!home && (
-        <div className={styles.backToHome}>
-          <Link href="/">← Back to home</Link>
-        </div>
-      )}
-    </div>
+      </div>
+      <Footer/>
+    </>
   );
 }
