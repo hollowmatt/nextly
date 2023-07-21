@@ -15,7 +15,16 @@ export async function getStaticProps() {
   };
 }
 
-export default function Home( {allPostsData} ) {
+export async function getHeaderProps() {
+  const headerData = getHeaderData();
+  return {
+    props: {
+      headerData,
+    },
+  };
+}
+
+export default function Home( {allPostsData, headerData} ) {
   return (
     <Layout home>
       <Head>
@@ -26,6 +35,7 @@ export default function Home( {allPostsData} ) {
         <section className="flex-col md:flex-row flex items-center md:justify-between mt-16 mb-16 md:mb-12">
           <h1 className="text-5xl md:text-8xl font-bold tracking-tighter leading-tight md:pr-8">
             Blogly.
+            {console.log(headerData)}
           </h1>
           <h4 className="text-center md:text-left text-lg mt-5 md:pl-8">
           Hello, I'm <strong>Matt</strong>.  I do stuff at Google.   This is basically a simple, random set of blog posts using {' '}
