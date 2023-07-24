@@ -3,6 +3,7 @@ import utilStyles from '../styles/utils.module.css';
 import Layout, { siteTitle } from '../components/layout';
 import { getSortedPostsData, getHeaderData } from '../lib/posts';
 import Link from 'next/link';
+import Image from 'next/image';
 import Date from '../components/date';
 import Container from '../components/container';
 
@@ -37,7 +38,13 @@ export default function Home( {allPostsData, headerData} ) {
         {/* Move this section to a 'hero' component */}
         <section>
           <div className="mb-8 md:mb-16">
-            <p>[cover image here]</p>
+            <Image
+              src={allPostsData[0].coverImage}
+              alt={`Cover Image for ${allPostsData[0].title}`}
+              className="shadow-sm w-full hover:shadow-lg transition-shadow duration-200"
+              width={1300}
+              height={630}
+            />
           </div>
           <div className="md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8 mb-20 md:mb-28">
             <div>
@@ -47,7 +54,7 @@ export default function Home( {allPostsData, headerData} ) {
                   href="/posts/wobbly"
                   className="hover:underline"
                 >
-                  Wobbly, Wobbly
+                  {allPostsData[0].title}
                 </Link>
               </h3>
               <div className="mb-4 md:mb-0 text-lg">
@@ -55,8 +62,8 @@ export default function Home( {allPostsData, headerData} ) {
               </div>
             </div>
             <div>
-              <p className="text-lg leading-relaxed mb-4">[excerpt]</p>
-              [avatar]
+              <p className="text-lg leading-relaxed mb-4">{allPostsData[0].short}</p>
+              <img src={allPostsData[0].avatar} className="w-12 h-12 rounded-full mr-4" alt={allPostsData[0].contributor} />
             </div>
           </div>
         </section>
