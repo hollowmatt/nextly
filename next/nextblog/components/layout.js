@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from './layout.module.css';
@@ -62,6 +63,7 @@ export default function Layout({ children, home }) {
         </header>
         <main>
           {children}
+          <Analytics/>
         </main>
         {!home && (
           <Container>
