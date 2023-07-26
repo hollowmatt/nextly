@@ -19,6 +19,8 @@ export async function getStaticProps() {
 }
 
 export default function Home( {allPostsData, headerData} ) {
+  const heroPost = allPostsData[0];
+  const morePostsData = allPostsData.slice(1);
   return (
     <Layout home>
       <Head>
@@ -39,8 +41,8 @@ export default function Home( {allPostsData, headerData} ) {
         <section>
           <div className="mb-8 md:mb-16">
             <Image
-              src={allPostsData[0].coverImage}
-              alt={`Cover Image for ${allPostsData[0].title}`}
+              src={heroPost.coverImage}
+              alt={`Cover Image for ${heroPost.title}`}
               className="shadow-sm w-full hover:shadow-lg transition-shadow duration-200"
               width={1300}
               height={630}
@@ -54,7 +56,7 @@ export default function Home( {allPostsData, headerData} ) {
                   href="/posts/wobbly"
                   className="hover:underline"
                 >
-                  {allPostsData[0].title}
+                  {heroPost.title}
                 </Link>
               </h3>
               <div className="mb-4 md:mb-0 text-lg">
@@ -62,8 +64,8 @@ export default function Home( {allPostsData, headerData} ) {
               </div>
             </div>
             <div>
-              <p className="text-lg leading-relaxed mb-4">{allPostsData[0].short}</p>
-              <img src={allPostsData[0].avatar} className="w-12 h-12 rounded-full mr-4" alt={allPostsData[0].contributor} />
+              <p className="text-lg leading-relaxed mb-4">{heroPost.short}</p>
+              <img src={heroPost.avatar} className="w-12 h-12 rounded-full mr-4" alt={heroPost.contributor} />
             </div>
           </div>
         </section>
@@ -71,10 +73,10 @@ export default function Home( {allPostsData, headerData} ) {
         {/* All Posts Component */}
         <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
           <h2 className="mb-8 text-5xl md:text-7xl font-bold tracking-tighter leading-tight">
-            All Posts
+            More Posts
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-16 lg:gap-x-32 gap-y-20 md:gap-y-32 mb-32">
-            {allPostsData.map(({ id, date, title, short, coverImage, contributor, avatar }) => (
+            {morePostsData.map(({ id, date, title, short, coverImage, contributor, avatar }) => (
               <div>
                 <div className='mb-5'>
                   <Image
