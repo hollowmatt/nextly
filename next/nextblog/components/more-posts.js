@@ -10,7 +10,7 @@ export default function PostList({ postsData }) {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-16 lg:gap-x-32 gap-y-20 md:gap-y-32 mb-32">
         {postsData.map(({ id, date, title, short, coverImage, contributor, avatar }) => (
-          <div>
+          <div key={id}>
             <MedImg path={coverImage} altText={title} />
             <h3 className='text-3xl mb-3 leading-snug'>
               <Link href={`/posts/${id}`}>{title}</Link>
