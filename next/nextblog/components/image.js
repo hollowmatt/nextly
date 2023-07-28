@@ -1,5 +1,18 @@
 import Image from 'next/image';
 
+export function HeroImg({ path, altText }) {
+  return(
+    <div className="mb-8 md:mb-16">
+      <Image
+        src={path}
+        alt={`Cover Image for ${altText}`}
+        className="shadow-sm w-full hover:shadow-lg transition-shadow duration-200"
+        width={1300}
+        height={630}
+      />
+    </div>
+  )
+}
 export function MedImg({path, altText}) {
   return(
     <div className='mb-5'>
