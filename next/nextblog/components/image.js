@@ -29,7 +29,7 @@ export function MedImg({path, altText}) {
 
 export function SmallAvatar({path, altText }) {
   return (
-    <img src={path} className="w-12 h-12 rounded-full mr-4" alt={altText} />
+    <img src={path} className="w-12 h-12 rounded-full mr-4 mb-3" alt={altText} />
   );
 }
 
