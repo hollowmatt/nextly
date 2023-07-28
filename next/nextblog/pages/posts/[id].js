@@ -6,6 +6,7 @@ import utilStyles from '../../styles/utils.module.css';
 import Container from "../../components/container";
 import Image from 'next/image';
 import PostHeader from "../../components/post-header";
+import PostBody from "../../components/post-body";
 
 export async function getStaticProps({ params }) {
   const postData = await getPostData(params.id);
@@ -32,20 +33,7 @@ export default function Post({ postData }) {
       </Head>
       <Container>
         <PostHeader postData={postData} />
-        <div className="max-w-2xl mx-auto">
-          <div className="block md:hidden mb-6">
-            <div className="flex items-center">
-              <img src={postData.avatar} className="w-12 h-12 rounded-full mr-4" alt={postData.contributor} />
-              <div className="text-xl font-bold">{postData.contributor}</div>
-            </div>
-          </div>
-          <div className="mb-6 text-lg">
-            <Date dateString={postData.date} />
-          </div>
-        </div>
-        <article>
-          <div dangerouslySetInnerHTML={{__html: postData.contentHtml}} />
-        </article> 
+        <PostBody postData={postData} />
       </Container>
     </Layout>
   );
