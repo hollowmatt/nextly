@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Date from './date';
 import utilStyles from '../styles/utils.module.css';
 import { MedImg, SmallAvatar } from './image';
 
@@ -16,7 +17,7 @@ export default function PostList({ postsData }) {
               <Link href={`/posts/${id}`}>{title}</Link>
             </h3>
             <div className='text-lg mb-4'>
-              <Date dateString={date} />
+              <Date dateString={date} suppressHydrationWarning={true}/>
             </div>
             <p className="text-lg leading-relaxed mb-4">{short}</p>
             <SmallAvatar path={avatar} altText={contributor} />
