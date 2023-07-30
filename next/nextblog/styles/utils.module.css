@@ -50,3 +50,10 @@
 .lightText {
   color: #666;
 }
+
+.article ul {
+  padding: 5px;
+  margin: 5px;
+  list-style-position: inside;
+  list-style-type: square;
+}

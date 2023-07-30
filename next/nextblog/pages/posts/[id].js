@@ -1,10 +1,7 @@
 import Layout from "../../components/layout";
 import { getAllPostIds, getPostData } from '../../lib/posts';
 import Head from 'next/head';
-import Date from '../../components/date';
-import utilStyles from '../../styles/utils.module.css';
 import Container from "../../components/container";
-import Image from 'next/image';
 import PostHeader from "../../components/post-header";
 import PostBody from "../../components/post-body";
 
