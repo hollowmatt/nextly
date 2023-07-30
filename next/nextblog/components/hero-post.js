@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import Date from './date';
 import { HeroImg, SmallAvatar } from './image';

@@ -1,4 +1,5 @@
 import Date from './date';
+import utilStyles from '../styles/utils.module.css';
 
 export default function PostBody({ postData }) {
     return (
@@ -8,7 +9,7 @@ export default function PostBody({ postData }) {
                     <Date dateString={postData.date} />
                 </div>
             </div>
-            <article>
+            <article className={utilStyles.article}>
                 <div dangerouslySetInnerHTML={{__html: postData.contentHtml}} />
             </article> 
         </>
