@@ -6,7 +6,7 @@ export function HeroImg({ path, altText }) {
       <Image
         src={path}
         alt={`Cover Image for ${altText}`}
-        className="shadow-sm w-full hover:shadow-lg transition-shadow duration-200"
+        className="shadow-lg shadow-slate-300 rounded-lg w-full hover:shadow-2xl transition-shadow duration-200"
         width={1300}
         height={630}
       />
@@ -19,7 +19,7 @@ export function MedImg({path, altText}) {
       <Image
         src={path}
         alt={`Cover Image for ${altText}`}
-        className="shadow-sm w-full hover:shadow-lg transition-shadow duration-200"
+        className="shadow-lg rounded-md shadow-slate-300 w-full hover:shadow-2xl transition-shadow duration-200"
         width={1300}
         height={630}
       />
@@ -34,5 +34,5 @@ export function SmallAvatar({path, altText }) {
 }
 
 export function LargeAvatar({ path, alText }) {
-  
+
 }

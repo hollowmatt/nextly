@@ -11,7 +11,7 @@ export const siteTitle = "Matt's Blog - supplemental";
 
 export default function Layout({ children, home }) {
   return (
-    <>
+    <div class=" bg-slate-50">
       <div className="min-h-screen">
         <Head>
           <link rel="icon" href="/favicon.ico" />
@@ -68,12 +68,12 @@ export default function Layout({ children, home }) {
         {!home && (
           <Container>
             <div className={styles.backToHome}>
-              <Link href="/">← Back to home</Link>
+              <Link class="hover:text-sky-700 hover:font-bold hover:underline " href="/">← Back to home</Link>
             </div>
           </Container>
         )}
       </div>
-      <Footer/>
-    </>
+      <Footer class="bg-slate-300"/>
+    </div>
   );
 }
