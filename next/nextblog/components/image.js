@@ -33,6 +33,14 @@ export function SmallAvatar({path, altText }) {
   );
 }
 
-export function LargeAvatar({ path, alText }) {
+export function MedAvatar({ path, altText }) {
+  return(
+    <img src={path} className='w-24 h-24 rounded-full mr-4 mb-3' alt={altText} />
+  );
+}
 
+export function LargeAvatar({ path, altText }) {
+  return (
+    <img src={path} className="w-32 h-32 rounded-full mr-4 mb-3" alt={altText} />
+  );
 }
