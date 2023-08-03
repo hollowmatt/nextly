@@ -20,6 +20,7 @@ export async function getStaticProps() {
 export default function Home( {allPostsData, headerData} ) {
   const heroPost = allPostsData[0];
   const morePostsData = allPostsData.slice(1);
+
   return (
     <Layout home>
       <Head>
