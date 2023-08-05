@@ -5,19 +5,22 @@ import Intro from '../components/intro';
 import Hero from '../components/hero-post';
 import PostList from '../components/more-posts';
 import Container from '../components/container';
+import { getData } from '../data/get-data';
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
   const headerData = await getHeaderData();
+  const managers = await getData();
   return {
     props: {
       allPostsData,
       headerData,
+      managers,
     },
   };
 }
 
-export default function Home( {allPostsData, headerData} ) {
+export default function Home( {allPostsData, headerData, managers} ) {
   const heroPost = allPostsData[0];
   const morePostsData = allPostsData.slice(1);
 
@@ -30,6 +33,9 @@ export default function Home( {allPostsData, headerData} ) {
         <Intro introData = {headerData} />
         <Hero postData={heroPost} />
         <PostList postsData={morePostsData} />
+        {managers.map(({ manager }) => (
+          <p>{manager}</p>
+        ))}
       </Container>
     </Layout>
   )
