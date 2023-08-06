@@ -6,6 +6,7 @@ import Hero from '../components/hero-post';
 import PostList from '../components/more-posts';
 import Container from '../components/container';
 import { getData } from '../data/get-data';
+import AddPost from '../components/add-post';
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
@@ -37,6 +38,7 @@ export default function Home( {allPostsData, headerData, managers} ) {
         {managers.map(({ name, email, region, title, ldap, id }) => (
           <p key={id}>{name}</p>
         ))}
+        <AddPost />
       </Container>
     </Layout>
   )
