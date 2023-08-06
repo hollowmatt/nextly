@@ -3,11 +3,9 @@ import { database } from "../firebase";
 const dbInstance = collection(database, 'managers');
 
 export async function getData() {
-  const snapshot = await getDocs(dbInstance);
-  const data = snapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
-
-  return (data);
+  const snapshot = await getDocs(dbInstance)
+  const data = snapshot.docs.map((item) => {
+    return { ...item.data(), id: item.id }
+  });
+  return data;
 }

@@ -11,6 +11,7 @@ export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
   const headerData = await getHeaderData();
   const managers = await getData();
+  console.log(managers);
   return {
     props: {
       allPostsData,
@@ -33,8 +34,8 @@ export default function Home( {allPostsData, headerData, managers} ) {
         <Intro introData = {headerData} />
         <Hero postData={heroPost} />
         <PostList postsData={morePostsData} />
-        {managers.map(({ manager }) => (
-          <p>{manager}</p>
+        {managers.map(({ name, email, region, title, ldap, id }) => (
+          <p key={id}>{name}</p>
         ))}
       </Container>
     </Layout>
