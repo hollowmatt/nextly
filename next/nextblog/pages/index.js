@@ -11,8 +11,7 @@ import AddPost from '../components/add-post';
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
   const headerData = await getHeaderData();
-  const managers = await getData();
-  console.log(managers);
+  const managers = await getData('managers');
   return {
     props: {
       allPostsData,
