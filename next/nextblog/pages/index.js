@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Layout, { siteTitle } from '../components/layout';
-import { getSortedPostsData, getHeaderData } from '../lib/posts';
-import Intro from '../components/intro';
+import { getSortedPostsData, getHeaderData, getHeaderDataFromFirestore } from '../lib/posts';
+import Intro, { IntroFire } from '../components/intro';
 import Hero from '../components/hero-post';
 import PostList from '../components/more-posts';
 import Container from '../components/container';
@@ -11,17 +11,20 @@ import AddPost from '../components/add-post';
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
   const headerData = await getHeaderData();
-  const managers = await getData('managers');
+  const headerDataFire = await getHeaderDataFromFirestore();
+  const headerContent = headerDataFire.contentHtml;
+  const headerTitle = headerDataFire.headerTitle;
+
   return {
     props: {
       allPostsData,
-      headerData,
-      managers,
+      headerTitle,
+      headerContent,
     },
   };
 }
 
-export default function Home( {allPostsData, headerData, managers} ) {
+export default function Home( {allPostsData, headerTitle, headerContent} ) {
   const heroPost = allPostsData[0];
   const morePostsData = allPostsData.slice(1);
 
@@ -31,12 +34,9 @@ export default function Home( {allPostsData, headerData, managers} ) {
         <title>{siteTitle}</title>
       </Head>
       <Container>
-        <Intro introData = {headerData} />
+        <IntroFire title = {headerTitle} content = {headerContent} />
         <Hero postData={heroPost} />
         <PostList postsData={morePostsData} />
-        {managers.map(({ name, email, region, title, ldap, id }) => (
-          <p key={id}>{name}</p>
-        ))}
         <AddPost />
       </Container>
     </Layout>

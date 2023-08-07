@@ -3,6 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
+import { getData } from '../data/get-data';
 
 const postsDirectory = path.join(process.cwd(), 'data/posts');
 const metaDirectory = path.join(process.cwd(), 'data/meta');
@@ -75,5 +76,17 @@ export async function getHeaderData() {
   return {
     contentHtml,
     ...matterResult.data,
+  };
+}
+
+export async function getHeaderDataFromFirestore() {
+  const headerData = await getData("metablog");
+  const title = headerData[0].title;
+  const processedContent = await remark().use(html).process(headerData[0].blurb)
+  const blurb = processedContent.toString();
+
+  return{
+    contentHtml: blurb,
+    headerTitle: title,
   };
 }
