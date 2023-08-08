@@ -90,3 +90,8 @@ export async function getHeaderDataFromFirestore() {
     headerTitle: title,
   };
 }
+
+export async function getBlogPostsFromFirestore() {
+  const postsData = await getData("blogposts");
+  console.log("Number of posts: " + postsData.length);
+}
