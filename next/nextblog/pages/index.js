@@ -16,7 +16,7 @@ export async function getStaticProps() {
   const headerContent = headerDataFire.contentHtml;
   const headerTitle = headerDataFire.headerTitle;
   getBlogPostsFromFirestore();
-
+ 
   return {
     props: {
       allPostsData,
