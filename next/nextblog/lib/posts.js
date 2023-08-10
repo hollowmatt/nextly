@@ -93,6 +93,7 @@ export async function getHeaderDataFromFirestore() {
 
 export async function getBlogPostsFromFirestore() {
   const postsData = await getData("blogposts");
+<<<<<<< HEAD
   const posts = [];
   postsData.map((post) => {
     posts.push(
@@ -109,3 +110,16 @@ export async function getBlogPostsFromFirestore() {
   });
   return posts;
 }
+=======
+  const allPosts = [];
+  postsData.map((item) => {
+    allPosts.push(
+      {
+        date: item.date,
+        contentHtml: item.body,
+      }
+    );
+  });
+  console.log(allPosts[0].contentHtml);
+}
+>>>>>>> refs/remotes/origin/modernize
