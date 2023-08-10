@@ -15,10 +15,11 @@ export async function getStaticProps() {
   const headerDataFire = await getHeaderDataFromFirestore();
   const headerContent = headerDataFire.contentHtml;
   const headerTitle = headerDataFire.headerTitle;
-  getBlogPostsFromFirestore();
-
+  const allPosts = await getBlogPostsFromFirestore();
+  console.log(allPosts);
   return {
     props: {
+      allPosts,
       allPostsData,
       headerTitle,
       headerContent,
@@ -26,9 +27,12 @@ export async function getStaticProps() {
   };
 }
 
-export default function Home( {allPostsData, headerTitle, headerContent} ) {
-  const heroPost = allPostsData[0];
+export default function Home( {allPosts, allPostsData, headerTitle, headerContent} ) {
+  //const heroPost = allPostsData[0];
   const morePostsData = allPostsData.slice(1);
+  const heroPost = allPosts[0];
+  //const morePosts = allPosts.slice(1);
+  //console.log(allPosts);
 
   return (
     <Layout home>

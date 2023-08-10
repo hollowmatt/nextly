@@ -17,7 +17,7 @@ export default function Hero ({ postData }) {
             </Link>
           </h3>
           <div className="mb-4 md:mb-0 text-lg">
-            <Date dateString={postData.date} suppressHydrationWarning={true}/>
+            {/* <Date dateString={postData.date} suppressHydrationWarning={true}/> */}
           </div>
         </div>
         <div>

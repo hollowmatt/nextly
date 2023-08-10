@@ -93,5 +93,19 @@ export async function getHeaderDataFromFirestore() {
 
 export async function getBlogPostsFromFirestore() {
   const postsData = await getData("blogposts");
-  console.log("Number of posts: " + postsData.length);
+  const posts = [];
+  postsData.map((post) => {
+    posts.push(
+      {
+        id: post.id,
+        avatar: post.avatar,
+        contributor: post.contributor,
+        coverImage: post.coverImage,
+        short: post.short,
+        title: post.title,
+        body: post.body,
+      }
+    )
+  });
+  return posts;
 }
