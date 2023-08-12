@@ -3,7 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
-import { getData } from '../data/get-data';
+import { getData, getRow } from '../data/get-data';
 
 const postsDirectory = path.join(process.cwd(), 'data/posts');
 const metaDirectory = path.join(process.cwd(), 'data/meta');
@@ -108,4 +108,10 @@ export async function getBlogPostsFromFirestore() {
     )
   });
   return posts;
+}
+
+export async function getBlogPostFromFirestore(id) {
+  const blogPost = await getRow('blogposts', id);
+  console.log(blogPost);
+  return(blogPost);
 }
