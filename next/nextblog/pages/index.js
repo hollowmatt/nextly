@@ -43,7 +43,6 @@ export default function Home( {allPosts, allPostsData, headerTitle, headerConten
         <IntroFire title = {headerTitle} content = {headerContent} />
         <Hero postData={heroPost} />
         <PostList postsData={morePostsData} />
-        <AddPost />
       </Container>
     </Layout>
   )
