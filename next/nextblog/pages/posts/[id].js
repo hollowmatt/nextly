@@ -1,13 +1,14 @@
 import Layout from "../../components/layout";
-import { getAllPostIds, getPostData, getBlogPostFromFirestore } from '../../lib/posts';
+import { getAllPostIds, getPostData } from '../../lib/posts';
+//import { getBlogPostFromFirestore, getAllPostIdsFromFirestore } from "../../lib/posts _fs";
 import Head from 'next/head';
 import Container from "../../components/container";
 import PostHeader from "../../components/post-header";
 import PostBody from "../../components/post-body";
 
 export async function getStaticProps({ params }) {
-  const postData_old = await getPostData(params.id);
-  const postData = await getBlogPostFromFirestore(params.id);
+  const postData = await getPostData(params.id);
+  // const postData = await getBlogPostFromFirestore(params.id);
 
   return {
     props: {
@@ -18,6 +19,7 @@ export async function getStaticProps({ params }) {
 
 export async function getStaticPaths() {
   const paths = getAllPostIds();
+  console.log(paths);
   return {
     paths,
     fallback: false,

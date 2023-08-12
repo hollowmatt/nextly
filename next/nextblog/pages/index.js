@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Layout, { siteTitle } from '../components/layout';
 import { getSortedPostsData, getHeaderData, getHeaderDataFromFirestore, getBlogPostsFromFirestore } from '../lib/posts';
+import { getAllPostIdsFromFirestore } from '../lib/posts _fs';
 import Intro, { IntroFire } from '../components/intro';
 import Hero from '../components/hero-post';
 import PostList from '../components/more-posts';
@@ -16,7 +17,9 @@ export async function getStaticProps() {
   const headerContent = headerDataFire.contentHtml;
   const headerTitle = headerDataFire.headerTitle;
   const allPosts = await getBlogPostsFromFirestore();
-  console.log(allPosts);
+
+  console.log(await getAllPostIdsFromFirestore());
+
   return {
     props: {
       allPosts,
