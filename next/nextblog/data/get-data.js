@@ -1,15 +1,11 @@
-import { getFirestore, collection, getDocs } from "firebase/firestore";
-import app from "../firebase";
+import { collection, getDocs } from "firebase/firestore";
+import { database } from "../firebase";
+//const dbInstance = collection(database, 'managers');
 
-const firestore = getFirestore(app);
-
-export default async function handler(req, res) {
-  const snapshot = await getDocs(collection(firestore, "BLOG"));
-
-  const data = snapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
-
-  res.status(200).json(data);
+export async function getData(coll) {
+  const snapshot = await getDocs(collection(database, coll));
+  const data = snapshot.docs.map((item) => {
+    return { ...item.data(), id: item.id }
+  });
+  return data;
 }
