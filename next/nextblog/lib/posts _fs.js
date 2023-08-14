@@ -42,12 +42,8 @@ export async function getBlogPostFromFirestore(id) {
 
 export async function getAllPostIdsFromFirestore() {
   const postsData = await getData("blogposts");
-  console.log(postsData.length);
-  return postsData.map((post) => {
-    return {
-      params: {
-        id: post.id,
-      },
-    };
-  });
+  const paths = postsData.map((post) => ({
+    params: { id: post.id },
+  }));
+  return paths;
 }
