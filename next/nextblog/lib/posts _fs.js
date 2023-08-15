@@ -36,8 +36,19 @@ export async function getBlogPostsFromFirestore() {
 
 export async function getBlogPostFromFirestore(id) {
   const blogPost = await getRow('blogposts', id);
-  console.log(blogPost);
-  return(blogPost);
+  const processedContent = await remark().use(html).process(blogPost.body);
+  const body = processedContent.toString();
+  const postDate = JSON.stringify(blogPost.date.toDate());
+
+  return({
+    avatar: blogPost.avatar,
+    contributor: blogPost.contributor,
+    coverImage: blogPost.coverImage,
+    short: blogPost.short,
+    title: blogPost.title,
+    body: body,
+    date: postDate,
+  });
 }
 
 export async function getAllPostIdsFromFirestore() {
