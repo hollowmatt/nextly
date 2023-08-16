@@ -27,7 +27,7 @@ export async function getBlogPostsFromFirestore() {
         coverImage: post.coverImage,
         short: post.short,
         title: post.title,
-        body: body,
+        body: post.body,
       }
     )
   });

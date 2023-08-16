@@ -1,6 +1,6 @@
 import Layout from "../../components/layout";
 //import { getPostData } from '../../lib/posts';
-import { getBlogPostFromFirestore, getAllPostIdsFromFirestore } from "../../lib/posts _fs";
+import { getBlogPostFromFirestore, getAllPostIdsFromFirestore } from "../../lib/posts";
 import Head from 'next/head';
 import Container from "../../components/container";
 import PostHeader from "../../components/post-header";
