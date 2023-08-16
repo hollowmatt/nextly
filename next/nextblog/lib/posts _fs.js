@@ -39,15 +39,16 @@ export async function getBlogPostFromFirestore(id) {
   const blogPost = await getRow('blogposts', id);
   //get the body of the post from Cloud Bucket
   const storage = getStorage();
-  var preBody = '';
+  const preBody = [];
 
-  getDownloadURL(ref(storage, `${id}.md`))
+  await getDownloadURL(ref(storage, `${id}.md`))
     .then((url) => fetch(url))
     .then((res => res.text()))
-    .then((res) => console.log(res));
-
-
-  const processedContent = await remark().use(html).process(blogPost.body);
+    .then((res) => {
+      preBody.push(res);
+  });
+  
+  const processedContent = await remark().use(html).process(preBody[0]);
   const body = processedContent.toString();
   const postDate = JSON.stringify(blogPost.date.toDate());
 

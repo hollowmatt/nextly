@@ -32,12 +32,11 @@ export default function Post({ postData }) {
   return (
     <Layout>
       <Head>
-        {/* <title>{postData.title}</title> */}
+        <title>{postData.title}</title>
       </Head>
       <Container>
-        <p>Placeholder</p>
-        {/* <PostHeader postData={postData} />
-        <PostBody postData={postData} /> */}
+        <PostHeader postData={postData} />
+        <PostBody postData={postData} />
       </Container>
     </Layout>
   );
