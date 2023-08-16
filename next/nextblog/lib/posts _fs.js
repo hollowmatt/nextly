@@ -1,4 +1,3 @@
-import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
 import { getData, getRow } from '../data/get-data';
