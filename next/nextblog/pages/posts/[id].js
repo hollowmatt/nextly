@@ -1,13 +1,12 @@
 import Layout from "../../components/layout";
-//import { getPostData } from '../../lib/posts';
-import { getBlogPostFromFirestore, getAllPostIdsFromFirestore } from "../../lib/posts";
+import { getBlogPostFromFirestore } from "../../lib/posts";
 import Head from 'next/head';
 import Container from "../../components/container";
 import PostHeader from "../../components/post-header";
 import PostBody from "../../components/post-body";
+//import { getAllPostIdsFromFirestore } from "../../lib/posts"
 
 export async function getStaticProps({ params }) {
-  //const postData = await getPostData(params.id);
   const postData = await getBlogPostFromFirestore(params.id);
   return {
     props: {
@@ -17,9 +16,12 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  //const paths = getAllPostIds();
+  /* NEED TO FIX THIS:
+   - when pulling from FS, it doesn't format properly
+   - short term fix, return empty array and fallback to dynamic
+  */
+  //const paths = await getAllPostIdsFromFirestore();
   const paths = [];
-  const paths_fs = await getAllPostIdsFromFirestore();
 
   return {
     paths,
@@ -28,7 +30,6 @@ export async function getStaticPaths() {
 }
 
 export default function Post({ postData }) {
-  console.log(postData);
   return (
     <Layout>
       <Head>

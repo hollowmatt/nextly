@@ -34,12 +34,6 @@ export async function getBlogPostsFromFirestore() {
   return posts;
 }
 
-// export async function getBlogPostFromFirestore(id) {
-//   const blogPost = await getRow('blogposts', id);
-//   console.log(blogPost);
-//   return(blogPost);
-// }
-
 export async function getBlogPostFromFirestore(id) {
   const blogPost = await getRow('blogposts', id);
   //get the body of the post from Cloud Bucket
