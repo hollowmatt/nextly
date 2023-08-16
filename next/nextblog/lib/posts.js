@@ -18,7 +18,9 @@ export async function getHeaderDataFromFirestore() {
 export async function getBlogPostsFromFirestore() {
   const postsData = await getData("blogposts");
   const posts = [];
+  
   postsData.map((post) => {
+    const postDate = JSON.stringify(post.date.toDate());
     posts.push(
       {
         id: post.id,
@@ -28,8 +30,9 @@ export async function getBlogPostsFromFirestore() {
         short: post.short,
         title: post.title,
         body: post.body,
+        date: postDate,
       }
-    )
+    );
   });
   return posts;
 }
