@@ -2,6 +2,7 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
 import { getData, getRow } from '../data/get-data';
+import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 
 export async function getHeaderDataFromFirestore() {
   const headerData = await getData("metablog");
@@ -27,7 +28,7 @@ export async function getBlogPostsFromFirestore() {
         coverImage: post.coverImage,
         short: post.short,
         title: post.title,
-        body: post.body,
+        body: body,
       }
     )
   });
@@ -36,6 +37,16 @@ export async function getBlogPostsFromFirestore() {
 
 export async function getBlogPostFromFirestore(id) {
   const blogPost = await getRow('blogposts', id);
+  //get the body of the post from Cloud Bucket
+  const storage = getStorage();
+  var preBody = '';
+
+  getDownloadURL(ref(storage, `${id}.md`))
+    .then((url) => fetch(url))
+    .then((res => res.text()))
+    .then((res) => console.log(res));
+
+
   const processedContent = await remark().use(html).process(blogPost.body);
   const body = processedContent.toString();
   const postDate = JSON.stringify(blogPost.date.toDate());
