@@ -30,10 +30,12 @@ export async function getStaticPaths() {
 }
 
 export default function Post({ postData }) {
+  const postTitle = () => postData.title === undefined ? "" : postData.title; 
+
   return (
     <Layout>
       <Head>
-        <title>{postData.title}</title>
+        <title>{postTitle}</title>
       </Head>
       <Container>
         <PostHeader postData={postData} />
