@@ -12,6 +12,8 @@ export async function getStaticProps({ params }) {
     props: {
       postData,
     },
+    revalidate: 10,
+    notFound: !postData,
   };
 }
 
@@ -21,11 +23,10 @@ export async function getStaticPaths() {
    - short term fix, return empty array and fallback to dynamic
   */
   //const paths = await getAllPostIdsFromFirestore();
-  const paths = [];
-
+  
   return {
-    paths,
-    fallback: true,
+    paths: [],
+    fallback: 'blocking',
   };
 }
 
@@ -44,4 +45,3 @@ export default function Post({ postData }) {
     </Layout>
   );
 }
-
