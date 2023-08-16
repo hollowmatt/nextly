@@ -1,83 +1,7 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
-import { getData } from '../data/get-data';
-
-const postsDirectory = path.join(process.cwd(), 'data/posts');
-const metaDirectory = path.join(process.cwd(), 'data/meta');
-
-export function getSortedPostsData() {
-
-  const fileNames = fs.readdirSync(postsDirectory);
-  const allPostsData = fileNames.map((fileName) => {
-    // use regex to remove .md from filename
-    const id = fileName.replace(/\.md$/, '');
-    const fullPath = path.join(postsDirectory, fileName);
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
-
-    //use gray-matter to parse
-    const matterResult = matter(fileContents);
-
-    return {
-      id,
-      ...matterResult.data,
-    };
-  });
-
-  return allPostsData.sort((a, b) => {
-    if (a.data < b.date) {
-      return 1;
-    } else {
-      return -1;
-    }
-  });
-}
-
-export function getAllPostIds() {
-  const fileNames = fs.readdirSync(postsDirectory);
-  return fileNames.map((fileName) => {
-    return {
-      params: {
-        id: fileName.replace(/\.md$/, ''),
-      },
-    };
-  });
-}
-
-export async function getPostData(id) {
-  const fullPath = path.join(postsDirectory, `${id}.md`);
-  const fileContents = fs.readFileSync(fullPath, 'utf-8');
-
-  const matterResult = matter(fileContents);
-  const processedContent = await remark()
-    .use(html)
-    .process(matterResult.content);
-  const contentHtml = processedContent.toString();
-
-  return {
-    id,
-    contentHtml,
-    ...matterResult.data,
-  };
-}
-
-export async function getHeaderData() {
-  const fullPath = path.join(metaDirectory, 'header.md');
-  const fileContents = fs.readFileSync(fullPath, 'utf-8');
-
-  const matterResult = matter(fileContents);
-  const processedContent = await remark()
-    .use(html)
-    .process(matterResult.content);
-  const contentHtml = processedContent.toString();
-
-  return {
-    contentHtml,
-    ...matterResult.data,
-  };
-}
+import { getData, getRow } from '../data/get-data';
+import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 
 export async function getHeaderDataFromFirestore() {
   const headerData = await getData("metablog");
@@ -108,4 +32,40 @@ export async function getBlogPostsFromFirestore() {
     )
   });
   return posts;
+}
+
+export async function getBlogPostFromFirestore(id) {
+  const blogPost = await getRow('blogposts', id);
+  //get the body of the post from Cloud Bucket
+  const storage = getStorage();
+  const preBody = [];
+
+  await getDownloadURL(ref(storage, `${id}.md`))
+    .then((url) => fetch(url))
+    .then((res => res.text()))
+    .then((res) => {
+      preBody.push(res);
+  });
+  
+  const processedContent = await remark().use(html).process(preBody[0]);
+  const body = processedContent.toString();
+  const postDate = JSON.stringify(blogPost.date.toDate());
+
+  return({
+    avatar: blogPost.avatar,
+    contributor: blogPost.contributor,
+    coverImage: blogPost.coverImage,
+    short: blogPost.short,
+    title: blogPost.title,
+    body: body,
+    date: postDate,
+  });
+}
+
+export async function getAllPostIdsFromFirestore() {
+  const postsData = await getData("blogposts");
+  const paths = postsData.map((post) => ({
+    params: { id: post.id },
+  }));
+  return paths;
 }
