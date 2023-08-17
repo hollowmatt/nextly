@@ -17,7 +17,7 @@ export default function PostList({ postsData }) {
               <Link href={`/posts/${id}`}>{title}</Link>
             </h3>
             <div className='text-lg mb-4'>
-              {/* <Date dateString={date} suppressHydrationWarning={true}/> */}
+              <Date dateString={date.slice(1,11)} suppressHydrationWarning={true}/>
             </div>
             <p className="text-lg leading-relaxed mb-4">{short}</p>
             <SmallAvatar path={avatar} altText={contributor} />

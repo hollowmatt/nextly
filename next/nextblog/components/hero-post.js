@@ -3,6 +3,7 @@ import Date from './date';
 import { HeroImg, SmallAvatar } from './image';
 
 export default function Hero ({ postData }) {
+  const postDate = postData.date.slice(1,11);
   return (
     <section>
       <HeroImg path={postData.coverImage} alText={postData.title} />
@@ -17,7 +18,7 @@ export default function Hero ({ postData }) {
             </Link>
           </h3>
           <div className="mb-4 md:mb-0 text-lg">
-            {/* <Date dateString={postData.date} suppressHydrationWarning={true}/> */}
+            <Date dateString={postDate} suppressHydrationWarning={true}/>
           </div>
         </div>
         <div>

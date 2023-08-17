@@ -6,7 +6,7 @@ export default function PostBody({ postData }) {
         <>
             <div className="max-w-2xl mx-auto">
                 <div className="mb-6 text-lg">
-                    {/* <Date dateString={postData.date} /> */}
+                    <Date dateString={postData.date.slice(1,11)} /> 
                 </div>
             </div>
             <article className={utilStyles.article}>

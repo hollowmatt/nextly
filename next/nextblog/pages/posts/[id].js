@@ -18,12 +18,6 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  /* NEED TO FIX THIS:
-   - when pulling from FS, it doesn't format properly
-   - short term fix, return empty array and fallback to dynamic
-  */
-  //const paths = await getAllPostIdsFromFirestore();
-  
   return {
     paths: [],
     fallback: 'blocking',
