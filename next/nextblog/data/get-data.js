@@ -11,12 +11,11 @@ export async function getData(coll) {
 }
 
 export async function getSortedData(coll) {
-  const data = database.collection(coll)
-    .orderBy("date", "desc")
-    .get()
-    .then((snapshot => {
-      return {...snapshot.data(), id: snapshot.id}
-    }));
+  const q = query(collection(database, coll), orderBy("date", "desc"));
+  const snapshot = await getDocs(q);
+  const data = snapshot.docs.map((item) => {
+    return { ...item.data(), id: item.id }
+  });
   return data;
 }
 
