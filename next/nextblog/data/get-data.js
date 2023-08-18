@@ -1,6 +1,6 @@
 import { collection, getDocs, doc, getDoc, query, orderBy } from "firebase/firestore";
 import { database } from "../firebase";
-//const dbInstance = collection(database, 'managers');
+import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 
 export async function getData(coll) {
   const snapshot = await getDocs(collection(database, coll));
@@ -27,4 +27,18 @@ export async function getRow(coll, id) {
   } else {
     return {'error_msg': "record does not exist",};
   }
+}
+
+export async function getBucketContent(id) {
+  const storage = getStorage();
+  const preBody = [];
+
+  await getDownloadURL(ref(storage, `${id}.md`))
+    .then((url) => fetch(url))
+    .then((res => res.text()))
+    .then((res) => {
+      preBody.push(res);
+  });
+  
+  return preBody[0];
 }
