@@ -1,7 +1,6 @@
 import { remark } from 'remark';
 import html from 'remark-html';
-import { getBucketContent, getData, getRow, getSortedData } from '../data/get-data';
-import { getStorage, ref, getDownloadURL } from 'firebase/storage';
+import { getBucketContent, getData, getRow, getSortedData, getBucketURL } from '../data/get-data';
 
 export async function getHeaderDataFromFirestore() {
   const headerData = await getData("metablog");
@@ -40,13 +39,14 @@ export async function getBlogPostsFromFirestore() {
 export async function getBlogPostFromFirestore(id) {
   const blogPost = await getRow('blogposts', id);
   //get the body of the post from Cloud Bucket
-  //const preBody = await getBucketContent(id);
   const processedContent = await remark().use(html).process(await getBucketContent(id));
   const body = processedContent.toString();
   const postDate = JSON.stringify(blogPost.date.toDate());
+  const avatar = await getBucketURL('/images/admin/', 'milkman', 'AVATAR');
+  console.log(avatar);
 
   return({
-    avatar: blogPost.avatar,
+    avatar: avatar,
     contributor: blogPost.contributor,
     coverImage: blogPost.coverImage,
     short: blogPost.short,

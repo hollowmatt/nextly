@@ -1,6 +1,6 @@
 import { HeroImg, SmallAvatar } from "./image";
 
-export default function PostHeader( {postData }) {
+export default function PostHeader( { postData }) {
     //const postTitle = () => postData.title === undefined ? "" : postData.title;
     return(
         <>

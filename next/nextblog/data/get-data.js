@@ -2,6 +2,12 @@ import { collection, getDocs, doc, getDoc, query, orderBy } from "firebase/fires
 import { database } from "../firebase";
 import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 
+const TYPE = Object.freeze({
+  POST: 'md',
+  AVATAR: 'jpeg',
+  IMG: 'jpg'
+});
+
 export async function getData(coll) {
   const snapshot = await getDocs(collection(database, coll));
   const data = snapshot.docs.map((item) => {
@@ -41,4 +47,11 @@ export async function getBucketContent(id) {
   });
   
   return preBody[0];
+}
+
+export async function getBucketURL(path, id, type) {
+  const storage = getStorage();
+  const object = path + id + "." + TYPE[type];
+  const url = await getDownloadURL(ref(storage, object));
+  return url;
 }
