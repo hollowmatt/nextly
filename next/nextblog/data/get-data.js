@@ -55,3 +55,9 @@ export async function getBucketURL(path, id, type) {
   const url = await getDownloadURL(ref(storage, object));
   return url;
 }
+
+export async function getAvatarURL(avatar) {
+  const storage = getStorage();
+  const url = await getDownloadURL(ref(storage, avatar));
+  return url;
+}
