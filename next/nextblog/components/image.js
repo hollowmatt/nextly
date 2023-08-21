@@ -20,8 +20,8 @@ export function MedImg({path, altText}) {
         src={path}
         alt={`Cover Image for ${altText}`}
         className="shadow-lg rounded-md shadow-slate-300 w-full hover:shadow-2xl transition-shadow duration-200"
-        width={1300}
-        height={630}
+        width={650}
+        height={315}
       />
     </div>
   );

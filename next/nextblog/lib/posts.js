@@ -21,10 +21,9 @@ export async function getBlogPostsFromFirestore() {
         id: post.id,
         avatar: await getAvatarURL(post.avatar),
         contributor: post.contributor,
-        coverImage: post.coverImage,
+        coverImage: await getAvatarURL(post.coverImage),
         short: post.short,
         title: post.title,
-        body: post.body,
         date: JSON.stringify(post.date.toDate()),
       }
   });
@@ -38,7 +37,7 @@ export async function getBlogPostFromFirestore(id) {
   return({
     avatar: await getAvatarURL(blogPost.avatar),
     contributor: blogPost.contributor,
-    coverImage: blogPost.coverImage,
+    coverImage: await getAvatarURL(blogPost.coverImage),
     short: blogPost.short,
     title: blogPost.title,
     body: processedContent.toString(),
