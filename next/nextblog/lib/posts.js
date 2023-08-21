@@ -1,7 +1,6 @@
 import { remark } from 'remark';
 import html from 'remark-html';
-import { getData, getRow, getSortedData } from '../data/get-data';
-import { getStorage, ref, getDownloadURL } from 'firebase/storage';
+import { getBucketContent, getData, getRow, getSortedData, getAvatarURL } from '../data/get-data';
 
 export async function getHeaderDataFromFirestore() {
   const headerData = await getData("metablog");
@@ -17,51 +16,32 @@ export async function getHeaderDataFromFirestore() {
 
 export async function getBlogPostsFromFirestore() {
   const postsData = await getSortedData("blogposts");
-  const posts = [];
-  
-  postsData.map((post) => {
-    const postDate = JSON.stringify(post.date.toDate());
-    posts.push(
-      {
+  const posts = postsData.map(async (post) => {
+    return {
         id: post.id,
-        avatar: post.avatar,
+        avatar: await getAvatarURL(post.avatar),
         contributor: post.contributor,
-        coverImage: post.coverImage,
+        coverImage: await getAvatarURL(post.coverImage),
         short: post.short,
         title: post.title,
-        body: post.body,
-        date: postDate,
+        date: JSON.stringify(post.date.toDate()),
       }
-    );
   });
-  return posts;
+  return Promise.all(posts);
 }
 
 export async function getBlogPostFromFirestore(id) {
   const blogPost = await getRow('blogposts', id);
-  //get the body of the post from Cloud Bucket
-  const storage = getStorage();
-  const preBody = [];
-
-  await getDownloadURL(ref(storage, `${id}.md`))
-    .then((url) => fetch(url))
-    .then((res => res.text()))
-    .then((res) => {
-      preBody.push(res);
-  });
+  const processedContent = await remark().use(html).process(await getBucketContent(id));
   
-  const processedContent = await remark().use(html).process(preBody[0]);
-  const body = processedContent.toString();
-  const postDate = JSON.stringify(blogPost.date.toDate());
-
   return({
-    avatar: blogPost.avatar,
+    avatar: await getAvatarURL(blogPost.avatar),
     contributor: blogPost.contributor,
-    coverImage: blogPost.coverImage,
+    coverImage: await getAvatarURL(blogPost.coverImage),
     short: blogPost.short,
     title: blogPost.title,
-    body: body,
-    date: postDate,
+    body: processedContent.toString(),
+    date: JSON.stringify(blogPost.date.toDate()),
   });
 }
 
