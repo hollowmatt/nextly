@@ -16,24 +16,19 @@ export async function getHeaderDataFromFirestore() {
 
 export async function getBlogPostsFromFirestore() {
   const postsData = await getSortedData("blogposts");
-  const posts = [];
-  
-  postsData.map((post) => {
-    const postDate = JSON.stringify(post.date.toDate());
-    posts.push(
-      {
+  const posts = postsData.map(async (post) => {
+    return {
         id: post.id,
-        avatar: post.avatar,
+        avatar: await getAvatarURL(post.avatar),
         contributor: post.contributor,
         coverImage: post.coverImage,
         short: post.short,
         title: post.title,
         body: post.body,
-        date: postDate,
+        date: JSON.stringify(post.date.toDate()),
       }
-    );
   });
-  return posts;
+  return Promise.all(posts);
 }
 
 export async function getBlogPostFromFirestore(id) {
