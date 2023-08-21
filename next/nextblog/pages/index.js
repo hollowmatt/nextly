@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Layout, { siteTitle } from '../components/layout';
 import { getHeaderDataFromFirestore, getBlogPostsFromFirestore } from '../lib/posts';
-import { IntroFire } from '../components/intro';
+import { Intro } from '../components/intro';
 import Hero from '../components/hero-post';
 import PostList from '../components/more-posts';
 import Container from '../components/container';
@@ -31,7 +31,7 @@ export default function Home( {allPosts, headerTitle, headerContent} ) {
         <title>{siteTitle}</title>
       </Head>
       <Container>
-        <IntroFire title = {headerTitle} content = {headerContent} />
+        <Intro title = {headerTitle} content = {headerContent} />
         <Hero postData={heroPost} />
         <PostList postsData={morePostsData} />
       </Container>
