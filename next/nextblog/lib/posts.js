@@ -1,6 +1,6 @@
 import { remark } from 'remark';
 import html from 'remark-html';
-import { getBucketContent, getData, getRow, getSortedData, getAvatarURL } from '../data/get-data';
+import { getBucketContent, getData, getRow, getSortedData, getAvatarURL } from './get-data';
 
 export async function getHeaderDataFromFirestore() {
   const headerData = await getData("metablog");
