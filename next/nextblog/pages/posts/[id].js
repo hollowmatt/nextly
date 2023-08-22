@@ -4,7 +4,6 @@ import Head from 'next/head';
 import Container from "../../components/container";
 import PostHeader from "../../components/post-header";
 import PostBody from "../../components/post-body";
-//import { getAllPostIdsFromFirestore } from "../../lib/posts"
 
 export async function getStaticProps({ params }) {
   const postData = await getBlogPostFromFirestore(params.id);
