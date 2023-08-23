@@ -4,12 +4,18 @@ import Head from 'next/head';
 import Container from "../../components/container";
 import PostHeader from "../../components/post-header";
 import PostBody from "../../components/post-body";
+import Comments from "../../components/comments";
 
 export async function getStaticProps({ params }) {
   const postData = await getBlogPostFromFirestore(params.id);
+  const shortname = await process.env.DISQUS_SHORT_NAME;
+  const url = await process.env.SITE_URL + "/posts/" + postData.id;
+
   return {
     props: {
       postData,
+      shortname,
+      url,
     },
     revalidate: 10,
     notFound: !postData,
@@ -23,9 +29,7 @@ export async function getStaticPaths() {
   };
 }
 
-export default function Post({ postData }) {
-  //const postTitle = () => postData.title === undefined ? "" : postData.title; 
-
+export default function Post({ postData, shortname, url }) {
   return (
     <Layout>
       <Head>
@@ -34,6 +38,7 @@ export default function Post({ postData }) {
       <Container>
         <PostHeader postData={postData} />
         <PostBody postData={postData} />
+        <Comments id={postData.id} title={postData.title} shortname={shortname} url={url}/>
       </Container>
     </Layout>
   );
