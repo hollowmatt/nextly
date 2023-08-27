@@ -11,7 +11,7 @@ export default function Hero ({ postData }) {
         <div>
           <h3 className="mb-4 text-4xl lg:text-5xl leading-tight">
             <Link
-              href={`/posts/${postData.id}`}
+              href={`posts/${postData.id}`}
               className="hover:underline"
             >
               {postData.title}

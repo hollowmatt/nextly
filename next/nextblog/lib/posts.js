@@ -35,6 +35,7 @@ export async function getBlogPostFromFirestore(id) {
   const processedContent = await remark().use(html).process(await getBucketContent(id));
   
   return({
+    id: id,
     avatar: await getAvatarURL(blogPost.avatar),
     contributor: blogPost.contributor,
     coverImage: await getAvatarURL(blogPost.coverImage),
